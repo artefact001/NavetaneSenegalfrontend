@@ -1,0 +1,29 @@
+<!-- <div class="container">
+  <h2>Résultats</h2>
+
+  <div class="row">
+    <div class="col-md-4" *ngFor="let resultat of resultats$ | async">
+      <div class="card mb-4">
+        <div class="card-body">
+          <h5 class="card-title">
+            <img [src]="resultat.logo" alt="{{ resultat.equipe_local }}" class="team-logo" />
+            {{ resultat.equipe_local }} vs
+            <img [src]="resultat.logo" alt="{{ resultat.equipe_visiteur }}" class="team-logo" />
+            {{ resultat.equipe_visiteur }}
+          </h5>
+          <p class="card-text">
+            Score: {{ resultat.score_local }} - {{ resultat.score_visiteur }}
+          </p>
+          <button class="btn btn-primary" (click)="toggleDetails(resultat)">Voir Détails</button>
+          <div *ngIf="resultat.showDetails" class="details">
+            <p><strong>Cartons Jaunes:</strong> {{ resultat.carton_jaune }}</p>
+            <p><strong>Cartons Rouges:</strong> {{ resultat.carton_rouge }}</p>
+            <p><strong>Détails Buts:</strong> {{ resultat.detail_but | json }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn btn-success" (click)="createResultat()">Ajouter Résultat</button>
+</div> -->

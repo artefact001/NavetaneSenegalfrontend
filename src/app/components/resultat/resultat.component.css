@@ -1,0 +1,9 @@
+.team-logo {
+  width: 40px; /* Ajustez la taille selon vos besoins */
+  height: auto;
+  margin-right: 5px; /* Espace entre le logo et le nom de l'équipe */
+}
+
+.details {
+  margin-top: 10px; /* Espacement pour les détails */
+}

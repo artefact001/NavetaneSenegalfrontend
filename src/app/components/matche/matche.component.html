@@ -1,0 +1,62 @@
+<div class="container mt-5">
+    <h2>{{ isEditing ? 'Edit Match' : 'Add Match' }}</h2>
+
+    <!-- Match Form -->
+    <form [formGroup]="matcheForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="equipe_local">Local Team</label>
+        <select formControlName="equipe_local" class="form-control" (blur)="matcheForm.controls['equipe_local'].markAsTouched()">
+          <option *ngFor="let equipe of equipes" [value]="equipe.id">
+            {{ equipe.nom }}
+          </option>
+        </select>
+        <div *ngIf="matcheForm.controls['equipe_local'].invalid && matcheForm.controls['equipe_local'].touched" class="text-danger">
+          Equipe local is required.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="equipe_visiteur">Visitor Team</label>
+        <select formControlName="equipe_visiteur" class="form-control" (blur)="matcheForm.controls['equipe_visiteur'].markAsTouched()">
+          <option *ngFor="let equipe of equipes" [value]="equipe.id">
+            {{ equipe.nom }}
+          </option>
+        </select>
+        <div *ngIf="matcheForm.controls['equipe_visiteur'].invalid && matcheForm.controls['equipe_visiteur'].touched" class="text-danger">
+          Equipe visiteur is required.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="date">Date</label>
+        <input type="date" formControlName="date" class="form-control" (blur)="matcheForm.controls['date'].markAsTouched()"/>
+        <div *ngIf="matcheForm.controls['date'].invalid && matcheForm.controls['date'].touched" class="text-danger">
+          Date is required.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="lieu">Location</label>
+        <input type="text" formControlName="lieu" class="form-control" (blur)="matcheForm.controls['lieu'].markAsTouched()"/>
+        <div *ngIf="matcheForm.controls['lieu'].invalid && matcheForm.controls['lieu'].touched" class="text-danger">
+          Lieu is required.
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary mt-3" [disabled]="matcheForm.invalid">
+        {{ isEditing ? 'Update Match' : 'Add Match' }}
+      </button>
+    </form>
+
+    <!-- Matches List -->
+    <div class="mt-5">
+      <h3>Matches List</h3>
+      <div *ngFor="let match of matches" class="card p-3 mb-3">
+        <h5>{{ match.equipe_local }} vs {{ match.equipe_visiteur }}</h5>
+        <p>Date: {{ match.date | date: 'shortDate' }} - Location: {{ match.lieu }}</p>
+        <button class="btn btn-warning" (click)="editMatche(match)">Edit</button>
+        <button class="btn btn-danger ml-2" (click)="deleteMatche(match)">Delete</button>
+      </div>
+    </div>
+  </div>
+  

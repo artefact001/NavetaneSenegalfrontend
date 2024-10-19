@@ -1,0 +1,45 @@
+<div class="container">
+  <h2>Create Competition</h2>
+  <form [formGroup]="competitionForm" (ngSubmit)="onSubmit()">
+
+    <!-- Nom -->
+    <div class="form-group">
+      <label for="nom">Competition Name</label>
+      <input type="text" id="nom" formControlName="nom" class="form-control" placeholder="Enter competition name">
+      <div *ngIf="competitionForm.get('nom')?.invalid && competitionForm.get('nom')?.touched" class="text-danger">
+        Competition name is required and should be at least 3 characters long.
+      </div>
+    </div>
+
+    <!-- Date Debut -->
+    <div class="form-group">
+      <label for="date_debut">Start Date</label>
+      <input type="date" id="date_debut" formControlName="date_debut" class="form-control">
+      <div *ngIf="competitionForm.get('date_debut')?.invalid && competitionForm.get('date_debut')?.touched" class="text-danger">
+        Start date is required.
+      </div>
+    </div>
+
+    <!-- Date Fin -->
+    <div class="form-group">
+      <label for="date_fin">End Date</label>
+      <input type="date" id="date_fin" formControlName="date_fin" class="form-control">
+      <div *ngIf="competitionForm.get('date_fin')?.invalid && competitionForm.get('date_fin')?.touched" class="text-danger">
+        End date is required.
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-primary" [disabled]="competitionForm.invalid">Submit</button>
+  </form>
+
+  <!-- Affichage des compétitions -->
+
+  <h3>Competitions</h3>
+  <ul>
+    <li *ngFor="let competition of competitions">
+      <strong>{{ competition.nom }}</strong> ({{ competition.date_debut | date:'shortDate' }} - {{ competition.date_fin | date:'shortDate' }})
+    </li>
+  </ul>
+
+</div>
