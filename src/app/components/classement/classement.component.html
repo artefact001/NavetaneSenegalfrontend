@@ -1,1 +1,125 @@
-<p>classement works!</p>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title></title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+  <div class="sidebar">
+    <div class="logo">
+      <img src="./assets/logo.png" alt="Logo">
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#" id="tableau_de_bord"><img src="./assets/uil_dashboard.svg" alt=""> Tableau de bord</a></li>
+        <li><a href="#"><img src="./assets/dashicons_category.svg" alt="">Domaines</a></li>
+        <li><a href="#"><img src="./assets/healthicons_i-training-class.svg" alt="">Formations</a></li>
+        <li><a href="#"><img src="./assets/eos-icons_role-binding.svg" alt="">Rôles et permissions</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="main-content">
+    <div class="stats-container">
+
+    </div>
+
+    <div class="table-container">
+      <h2>Competitions</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Lieux</th>
+            <th>date debut</th>
+            <th> date fin </th>
+            <th>Zone</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+
+
+          <!-- Autres lignes -->
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCompetitionModal">
+            Ajouter une Compétition
+          </button>
+          <!-- Button trigger modal -->
+          <div class="modal fade" id="addCompetitionModal" tabindex="-1" aria-labelledby="addCompetitionModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="addCompetitionModalLabel">Ajouter une Compétition</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <!-- Formulaire de compétition -->
+                  <form [formGroup]="competitionForm" (ngSubmit)="onSubmit()">
+                    <div class="row mb-3">
+                      <div class="col-md-6">
+                        <label for="nom" class="form-label">Nom de la Compétition</label>
+                        <input id="nom" formControlName="nom" class="form-control" placeholder="Entrez le nom"
+                          required />
+                      </div>
+                      <div class="col-md-6">
+                        <label for="lieu" class="form-label">Lieu</label>
+                        <input id="lieu" formControlName="lieu" class="form-control" placeholder="Entrez le lieu"
+                          required />
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-md-6">
+                        <label for="dateDebut" class="form-label">Date de Début</label>
+                        <input type="date" id="dateDebut" formControlName="dateDebut" class="form-control" required />
+                      </div>
+                      <div class="col-md-6">
+                        <label for="dateFin" class="form-label">Date de Fin</label>
+                        <input type="date" id="dateFin" formControlName="dateFin" class="form-control" required />
+                      </div>
+                    </div>
+                    <div class="mb-3">
+                      <label for="zoneId" class="form-label">Zone</label>
+                      <select id="zoneId" formControlName="zoneId" class="form-select" required>
+                        <option value="">Sélectionner une zone</option>
+                        <option value="">zone 1</option>
+                        <option value="">zone 2</option>
+                        <option value="">zone 3</option>
+                        <option value="">zone 4</option>
+
+                        <option *ngFor="let zone of zones" [value]="zone.id">{{ zone.nom }}</option>
+                      </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary" [disabled]="competitionForm.invalid">Ajouter la
+                      Compétition</button>
+                  </form>
+                  <!-- Fin du formulaire de compétition -->
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+  </script>
+</body>
+
+</html>

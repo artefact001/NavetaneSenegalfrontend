@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core'
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
-import { CommonModule } from '@angular/common'
-import { CompetitionService } from '../../services/competition.service'
-import { Competition } from '../../Models/Tout.Model'
-import Swal from 'sweetalert2'
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CompetitionService } from '../../services/competition.service';
+import { Competition } from '../../Models/Tout.Model';
+
 @Component({
   selector: 'app-competition-form',
   standalone: true,
@@ -12,51 +13,49 @@ import Swal from 'sweetalert2'
   styleUrls: ['./competition.component.css']
 })
 export class CompetitionComponent implements OnInit {
-  competitionForm: FormGroup
-  competitions: Competition[] = []
+  competitionForm: FormGroup;
+  competitions :Competition[] = [];
 
-  constructor (
-    private readonly fb: FormBuilder,
-    private  readonly competitionService: CompetitionService
-  ) {
+  
+  constructor(private fb: FormBuilder, private competitionService: CompetitionService) {
     this.competitionForm = this.fb.group({
       nom: ['', [Validators.required, Validators.minLength(3)]],
       date_debut: ['', Validators.required],
       date_fin: ['', Validators.required]
-    })
+    });
   }
 
-  ngOnInit (): void {
-    this.loadCompetitions()
+  ngOnInit(): void {
+    this.loadCompetitions();
   }
 
   // Function to handle form submission
-  onSubmit () {
+  onSubmit() {
     if (this.competitionForm.valid) {
-      const formData = this.competitionForm.value
+      const formData = this.competitionForm.value;
 
       // Submit the form data to the backend using the service
       this.competitionService.addCompetition(formData).subscribe(
-        response => {
-          console.log('Competition created successfully:', response)
-          this.competitionForm.reset() // Reset the form after successful submission
+        (response) => {
+          console.log('Competition created successfully:', response);
+          this.competitionForm.reset(); // Reset the form after successful submission
         },
-        error => {
-          console.error('Error creating competition:', error)
+        (error) => {
+          console.error('Error creating competition:', error);
         }
-      )
+      );
     } else {
-      console.log('Form is invalid')
+      console.log('Form is invalid');
     }
   }
 
   // get competitions
-  loadCompetitions (): void {
-    this.competitionService
-      .getCompetitions()
-      .subscribe((competitions: Competition[]) => {
-        this.competitions = competitions
-        console.log('Competitions:', this.competitions)
-      })
+  loadCompetitions(): void {
+    this.competitionService.getCompetitions().subscribe((competitions: Competition[]) => {
+      this.competitions = competitions;
+      console.log('Competitions:', this.competitions);
+    });
   }
+ 
 }
+
