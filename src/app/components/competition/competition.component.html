@@ -15,7 +15,8 @@
     <div class="form-group">
       <label for="date_debut">Start Date</label>
       <input type="date" id="date_debut" formControlName="date_debut" class="form-control">
-      <div *ngIf="competitionForm.get('date_debut')?.invalid && competitionForm.get('date_debut')?.touched" class="text-danger">
+      <div *ngIf="competitionForm.get('date_debut')?.invalid && competitionForm.get('date_debut')?.touched"
+        class="text-danger">
         Start date is required.
       </div>
     </div>
@@ -24,7 +25,8 @@
     <div class="form-group">
       <label for="date_fin">End Date</label>
       <input type="date" id="date_fin" formControlName="date_fin" class="form-control">
-      <div *ngIf="competitionForm.get('date_fin')?.invalid && competitionForm.get('date_fin')?.touched" class="text-danger">
+      <div *ngIf="competitionForm.get('date_fin')?.invalid && competitionForm.get('date_fin')?.touched"
+        class="text-danger">
         End date is required.
       </div>
     </div>
@@ -38,7 +40,8 @@
   <h3>Competitions</h3>
   <ul>
     <li *ngFor="let competition of competitions">
-      <strong>{{ competition.nom }}</strong> ({{ competition.date_debut | date:'shortDate' }} - {{ competition.date_fin | date:'shortDate' }})
+      <strong>{{ competition.nom }}</strong> ({{ competition.date_debut | date:'shortDate' }} -
+      {{ competition.date_fin | date:'shortDate' }})
     </li>
   </ul>
 

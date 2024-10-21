@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core'
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { CommonModule } from '@angular/common'
+import { ReactiveFormsModule } from '@angular/forms'
 import { CompetitionService } from '../../services/competition.service'
 import { Competition } from '../../Models/Tout.Model'
-import Swal from 'sweetalert2'
+
 @Component({
   selector: 'app-competition-form',
   standalone: true,
@@ -16,8 +17,8 @@ export class CompetitionComponent implements OnInit {
   competitions: Competition[] = []
 
   constructor (
-    private readonly fb: FormBuilder,
-    private  readonly competitionService: CompetitionService
+    private fb: FormBuilder,
+    private competitionService: CompetitionService
   ) {
     this.competitionForm = this.fb.group({
       nom: ['', [Validators.required, Validators.minLength(3)]],
