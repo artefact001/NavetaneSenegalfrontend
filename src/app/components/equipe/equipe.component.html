@@ -1,1 +1,181 @@
-<p>equipe works!</p>
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Gestion des Équipes</title>
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+  <style>
+    /* Pour gérer la largeur */
+    @media (min-width: 768px) {
+      .main-content {
+        width: 95%;
+      }
+    }
+
+    /* Gestion du menu burger pour mobile */
+    @media (max-width: 767px) {
+      .sidebar {
+        display: none;
+      }
+
+      .menu-burger {
+        display: block;
+      }
+    }
+
+    /* Masque le menu burger sur les grands écrans */
+    .menu-burger {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="flex h-screen">
+    <!-- Sidebar -->
+    <div class="flex flex-col w-64 h-full bg-gray-900 border-r dark:bg-gray-900 dark:border-gray-700 sidebar">
+      <div class="text-center bg-gray-900">
+        <div class="text-gray-100 text-xl">
+          <div class="p-2.5 mt-1 flex items-center">
+            <i class="bi bi-app-indicator px-2 py-1 rounded-md bg-blue-600"></i>
+            <h1 class="font-bold text-gray-200 text-[15px] ml-3">Admin</h1>
+          </div>
+          <div class="my-2 bg-gray-600 h-[1px]"></div>
+        </div>
+        <!-- Sidebar Links -->
+        <div
+          class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
+          <i class="bi bi-house-door-fill"></i>
+          <span class="text-[15px] ml-4 text-gray-200 font-bold">Home</span>
+        </div>
+        <div
+          class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
+          <i class="bi bi-bookmark-fill"></i>
+          <span class="text-[15px] ml-4 text-gray-200 font-bold">Équipes</span>
+        </div>
+        <!-- More Links... -->
+      </div>
+    </div>
+
+    <!-- Menu burger (visible sur mobile) -->
+    <div class="menu-burger p-4">
+      <button id="burgerButton" class="btn btn-primary">
+        <i class="bi bi-list"></i> Menu
+      </button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1 p-6 bg-gray-100 overflow-y-auto main-content">
+      <!-- Formulaire de gestion des Équipes -->
+      <div class="container mt-5">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h2>Liste des Équipes</h2>
+          <!-- Bouton Ajouter Équipe -->
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addEquipeModal">
+            <i class="bi bi-plus-circle"></i> Ajouter Équipe
+          </button>
+        </div>
+
+        <!-- Tableau Responsive des Équipes -->
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+              <tr>
+                <th>Nom de l'Équipe</th>
+                <th>Logo</th>
+                <th>Date de Création</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Équipe 1</td>
+                <td><img src="logo1.png" alt="Logo" style="width: 50px;"></td>
+                <td>01/01/2023</td>
+                <td>
+                  <button class="btn btn-sm btn-info"><i class="bi bi-pencil"></i></button>
+                  <button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
+                </td>
+              </tr>
+              <!-- More Rows... -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Modal d'ajout d'équipe -->
+      <div class="modal fade" id="addEquipeModal" tabindex="-1" aria-labelledby="addEquipeModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+              <h5 class="modal-title" id="addEquipeModalLabel">Ajouter une Équipe</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <!-- Nom -->
+                <div class="form-group mb-3">
+                  <label for="nom">Nom de l'Équipe</label>
+                  <input type="text" id="nom" class="form-control" placeholder="Nom de l'équipe" required>
+                </div>
+
+                <!-- Logo -->
+                <div class="form-group mb-3">
+                  <label for="logo">Logo (URL)</label>
+                  <input type="text" id="logo" class="form-control" placeholder="URL du logo">
+                </div>
+
+                <!-- Date de Création -->
+                <div class="form-group mb-3">
+                  <label for="date_creer">Date de Création</label>
+                  <input type="date" id="date_creer" class="form-control" required>
+                </div>
+
+                <!-- Zone ID -->
+                <div class="form-group mb-3">
+                  <label for="zone_id">Zone ID</label>
+                  <input type="number" id="zone_id" class="form-control" placeholder="ID de la zone" required>
+                </div>
+
+                <!-- User ID -->
+                <div class="form-group mb-3">
+                  <label for="user_id">User ID (optionnel)</label>
+                  <input type="number" id="user_id" class="form-control" placeholder="ID de l'utilisateur">
+                </div>
+
+                <!-- Bouton Enregistrer -->
+                <button type="submit" class="btn btn-primary">Enregistrer</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    // Gestion du menu burger
+    const burgerButton = document.getElementById('burgerButton');
+    const sidebar = document.querySelector('.sidebar');
+
+    burgerButton.addEventListener('click', () => {
+      if (sidebar.style.display === 'block') {
+        sidebar.style.display = 'none';
+      } else {
+        sidebar.style.display = 'block';
+      }
+    });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+</body>
+
+</html>

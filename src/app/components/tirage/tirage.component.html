@@ -1,0 +1,33 @@
+<!-- src/app/components/tirage/tirage.component.html -->
+
+<div class="container">
+  <h1>Lancer le Tirage des Poules</h1>
+  <div class="form-group">
+    <label for="phase">Phase:</label>
+    <input type="text" [(ngModel)]="phase" class="form-control" id="phase" placeholder="Entrez la phase" />
+  </div>
+  <div class="form-group">
+    <label for="nombrePoules">Nombre de Poules:</label>
+    <input type="number" [(ngModel)]="nombrePoules" class="form-control" id="nombrePoules" min="2" step="2" />
+  </div>
+  <button (click)="lancerTirage()" class="btn btn-primary">Lancer le Tirage</button>
+
+  <div *ngIf="poules.length > 0">
+    <h2>Résultat du Tirage</h2>
+    <div *ngFor="let poule of poules; let i = index">
+      <h3>Poule {{'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[i]}}</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Équipe</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let equipe of poule.equipes">
+            <td>{{ equipe }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

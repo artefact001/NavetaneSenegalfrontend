@@ -24,40 +24,38 @@ export class CompetitionComponent implements OnInit {
       nom: ['', [Validators.required, Validators.minLength(3)]],
       date_debut: ['', Validators.required],
       date_fin: ['', Validators.required]
-    })
+    });
   }
 
-  ngOnInit (): void {
-    this.loadCompetitions()
+  ngOnInit(): void {
+    this.loadCompetitions();
   }
 
   // Function to handle form submission
-  onSubmit () {
+  onSubmit() {
     if (this.competitionForm.valid) {
-      const formData = this.competitionForm.value
+      const formData = this.competitionForm.value;
 
       // Submit the form data to the backend using the service
       this.competitionService.addCompetition(formData).subscribe(
-        response => {
-          console.log('Competition created successfully:', response)
-          this.competitionForm.reset() // Reset the form after successful submission
+        (response) => {
+          console.log('Competition created successfully:', response);
+          this.competitionForm.reset(); // Reset the form after successful submission
         },
-        error => {
-          console.error('Error creating competition:', error)
+        (error) => {
+          console.error('Error creating competition:', error);
         }
-      )
+      );
     } else {
-      console.log('Form is invalid')
+      console.log('Form is invalid');
     }
   }
 
   // get competitions
-  loadCompetitions (): void {
-    this.competitionService
-      .getCompetitions()
-      .subscribe((competitions: Competition[]) => {
-        this.competitions = competitions
-        console.log('Competitions:', this.competitions)
-      })
+  loadCompetitions(): void {
+    this.competitionService.getCompetitions().subscribe((competitions: Competition[]) => {
+      this.competitions = competitions;
+      console.log('Competitions:', this.competitions);
+    });
   }
 }

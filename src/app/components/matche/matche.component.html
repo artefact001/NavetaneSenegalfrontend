@@ -1,62 +1,404 @@
-<div class="container mt-5">
-    <h2>{{ isEditing ? 'Edit Match' : 'Add Match' }}</h2>
+<!DOCTYPE html>
+<html lang="fr">
 
-    <!-- Match Form -->
-    <form [formGroup]="matcheForm" (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <label for="equipe_local">Local Team</label>
-        <select formControlName="equipe_local" class="form-control" (blur)="matcheForm.controls['equipe_local'].markAsTouched()">
-          <option *ngFor="let equipe of equipes" [value]="equipe.id">
-            {{ equipe.nom }}
-          </option>
-        </select>
-        <div *ngIf="matcheForm.controls['equipe_local'].invalid && matcheForm.controls['equipe_local'].touched" class="text-danger">
-          Equipe local is required.
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Gestion des Compétitions</title>
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+  <style>
+    /* Pour gérer la largeur */
+    @media (min-width: 768px) {
+      .main-content {
+        width: 95%;
+      }
+    }
+
+    /* Gestion du menu burger pour mobile */
+    @media (max-width: 767px) {
+      .sidebar {
+        display: none;
+      }
+
+      .menu-burger {
+        display: block;
+      }
+    }
+
+    /* Masque le menu burger sur les grands écrans */
+    .menu-burger {
+      display: none;
+    }
+
+    /* Styles for match cards */
+    .card {
+      width: 100%;
+      margin: 15px;
+      border: none;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      background-color: #fff;
+    }
+
+    .card img {
+      object-fit: cover;
+      height: 150px;
+      width: 100%;
+    }
+
+    .card-body {
+      padding: 10px;
+      text-align: center;
+    }
+
+    .card-title {
+      font-size: 18px;
+      color: #1d2951;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .card-text {
+      font-size: 14px;
+      color: #666;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Masquer les barres de défilement */
+    .cards-container {
+      display: flex;
+      overflow-x: scroll;
+      padding: 20px;
+      -ms-overflow-style: none;
+      /* IE and Edge */
+      scrollbar-width: none;
+      /* Firefox */
+    }
+
+    .cards-container::-webkit-scrollbar {
+      display: none;
+      /* Chrome, Safari, Opera */
+    }
+
+    .card {
+      flex: 0 0 220px;
+      /* Largeur de chaque carte */
+      margin-right: 15px;
+    }
+
+    /* Arrière-plan global */
+    body {
+      background-color: #f4f4f9;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="flex h-screen">
+    <!-- Sidebar -->
+    <div class="flex flex-col w-64 h-full bg-gray-900 border-r dark:bg-gray-900 dark:border-gray-700 sidebar">
+      <div class="text-center bg-gray-900">
+        <div class="text-gray-100 text-xl">
+          <div class="p-2.5 mt-1 flex items-center">
+            <i class="bi bi-app-indicator px-2 py-1 rounded-md bg-blue-600"></i>
+            <h1 class="font-bold text-gray-200 text-[15px] ml-3">Admin</h1>
+          </div>
+          <div class="my-2 bg-gray-600 h-[1px]"></div>
+        </div>
+
+        <!-- Sidebar Links -->
+        <div
+          class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
+          <i class="bi bi-house-door-fill"></i>
+          <span class="text-[15px] ml-4 text-gray-200 font-bold">Home</span>
+        </div>
+        <div
+          class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
+          <i class="bi bi-bookmark-fill"></i>
+          <span class="text-[15px] ml-4 text-gray-200 font-bold">Compétition</span>
+        </div>
+
+        <!-- New Matches Section -->
+        <div
+          class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
+          <i class="bi bi-flag-fill"></i>
+          <span class="text-[15px] ml-4 text-gray-200 font-bold">Gestion des Matches</span>
         </div>
       </div>
+    </div>
 
-      <div class="form-group">
-        <label for="equipe_visiteur">Visitor Team</label>
-        <select formControlName="equipe_visiteur" class="form-control" (blur)="matcheForm.controls['equipe_visiteur'].markAsTouched()">
-          <option *ngFor="let equipe of equipes" [value]="equipe.id">
-            {{ equipe.nom }}
-          </option>
-        </select>
-        <div *ngIf="matcheForm.controls['equipe_visiteur'].invalid && matcheForm.controls['equipe_visiteur'].touched" class="text-danger">
-          Equipe visiteur is required.
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="date">Date</label>
-        <input type="date" formControlName="date" class="form-control" (blur)="matcheForm.controls['date'].markAsTouched()"/>
-        <div *ngIf="matcheForm.controls['date'].invalid && matcheForm.controls['date'].touched" class="text-danger">
-          Date is required.
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="lieu">Location</label>
-        <input type="text" formControlName="lieu" class="form-control" (blur)="matcheForm.controls['lieu'].markAsTouched()"/>
-        <div *ngIf="matcheForm.controls['lieu'].invalid && matcheForm.controls['lieu'].touched" class="text-danger">
-          Lieu is required.
-        </div>
-      </div>
-
-      <button type="submit" class="btn btn-primary mt-3" [disabled]="matcheForm.invalid">
-        {{ isEditing ? 'Update Match' : 'Add Match' }}
+    <!-- Menu burger (visible sur mobile) -->
+    <div class="menu-burger p-4">
+      <button id="burgerButton" class="btn btn-primary">
+        <i class="bi bi-list"></i> Menu
       </button>
-    </form>
+    </div>
 
-    <!-- Matches List -->
-    <div class="mt-5">
-      <h3>Matches List</h3>
-      <div *ngFor="let match of matches" class="card p-3 mb-3">
-        <h5>{{ match.equipe_local }} vs {{ match.equipe_visiteur }}</h5>
-        <p>Date: {{ match.date | date: 'shortDate' }} - Location: {{ match.lieu }}</p>
-        <button class="btn btn-warning" (click)="editMatche(match)">Edit</button>
-        <button class="btn btn-danger ml-2" (click)="deleteMatche(match)">Delete</button>
+    <!-- Main Content -->
+    <div class="flex-1 p-6 bg-gray-100 overflow-y-auto main-content">
+      <div class="container mt-5">
+        <!-- Button to Open the Modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addMatchModal">
+          Add Match
+        </button>
+
+        <!-- Matches List -->
+        <h3 class="mt-5">Matches List</h3>
+        <div class="cards-container" id="cardsContainer">
+          <!-- Example Card 1 -->
+          <div class="card">
+            <div class="d-flex justify-content-between">
+              <img src="https://via.placeholder.com/50" class="card-img-top" alt="Logo Equipe 1">
+              <img src="https://via.placeholder.com/50" class="card-img-top" alt="Logo Equipe 2">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">ECO vs Diappo</h5>
+              <p class="card-text">Date: 2023-10-15 - Location: Stade Municipal</p>
+              <button class="btn btn-warning">Edit</button>
+              <button class="btn btn-danger ml-2">Delete</button>
+            </div>
+          </div>
+
+          <!-- Example Card 2 -->
+          <div class="card">
+            <div class="d-flex justify-content-between">
+              <img src="https://via.placeholder.com/50" class="card-img-top" alt="Logo Equipe 1">
+              <img src="https://via.placeholder.com/50" class="card-img-top" alt="Logo Equipe 2">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">ECO vs Diappo</h5>
+              <p class="card-text">Date: 2023-10-20 - Location: Stade Municipal</p>
+              <button class="btn btn-warning">Edit</button>
+              <button class="btn btn-danger ml-2">Delete</button>
+            </div>
+          </div>
+
+          <!-- Example Card 3 -->
+          <div class="card">
+            <div class="d-flex justify-content-between">
+              <img src="https://via.placeholder.com/50" class="card-img-top" alt="Logo Equipe 1">
+              <img src="https://via.placeholder.com/50" class="card-img-top" alt="Logo Equipe 2">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">ECO vs Diappo</h5>
+              <p class="card-text">Date: 2023-10-25 - Location: Stade Municipal</p>
+              <button class="btn btn-warning">Edit</button>
+              <button class="btn btn-danger ml-2">Delete</button>
+            </div>
+          </div>
+
+          <!-- Example Card 4 -->
+          <div class="card">
+            <div class="d-flex justify-content-between">
+              <img src="https://via.placeholder.com/50" class="card-img-top" alt="Logo Equipe 1">
+              <img src="https://via.placeholder.com/50" class="card-img-top" alt="Logo Equipe 2">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">ECO vs Diappo</h5>
+              <p class="card-text">Date: 2023-11-01 - Location: Stade Municipal</p>
+              <button class="btn btn-warning">Edit</button>
+              <button class="btn btn-danger ml-2">Delete</button>
+            </div>
+          </div>
+
+          <!-- Example Card 5 -->
+          <div class="card">
+            <div class="d-flex justify-content-between">
+              <img src="https://via.placeholder.com/50" class="card-img-top" alt="Logo Equipe 1">
+              <img src="https://via.placeholder.com/50" class="card-img-top" alt="Logo Equipe 2">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">ECO vs Diappo</h5>
+              <p class="card-text">Date: 2023-11-05 - Location: Stade Municipal</p>
+              <button class="btn btn-warning">Edit</button>
+              <button class="btn btn-danger ml-2">Delete</button>
+            </div>
+          </div>
+
+          <!-- Example Card 6 -->
+          <div class="card">
+            <div class="d-flex justify-content-between">
+              <img src="https://via.placeholder.com/50" class="card-img-top" alt="Logo Equipe 1">
+              <img src="https://via.placeholder.com/50" class="card-img-top" alt="Logo Equipe 2">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">ECO vs Diappo</h5>
+              <p class="card-text">Date: 2023-11-10 - Location: Stade Municipal</p>
+              <button class="btn btn-warning">Edit</button>
+              <button class="btn btn-danger ml-2">Delete</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pagination -->
+        <nav aria-label="Page navigation">
+          <ul class="pagination justify-content-center mt-4">
+            <li class="page-item" id="prevPage">
+              <a class="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li class="page-item active" id="page1"><a class="page-link" href="#">1</a></li>
+            <li class="page-item" id="page2"><a class="page-link" href="#">2</a></li>
+            <li class="page-item" id="nextPage">
+              <a class="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
   </div>
-  
+
+  <!-- Modal for Adding Match -->
+  <div class="modal fade" id="addMatchModal" tabindex="-1" aria-labelledby="addMatchModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addMatchModalLabel">{{ isEditing ? 'Edit Match' : 'Add Match' }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Match Form -->
+          <form [formGroup]="matcheForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label for="equipe_local">Local Team</label>
+              <select formControlName="equipe_local" class="form-control">
+                <option *ngFor="let equipe of equipes" [value]="equipe.id">
+                  {{ equipe.nom }}
+                </option>
+              </select>
+              <div *ngIf="matcheForm.controls['equipe_local'].invalid && matcheForm.controls['equipe_local'].touched"
+                class="text-danger">
+                Equipe local is required.
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="equipe_visiteur">Visitor Team</label>
+              <select formControlName="equipe_visiteur" class="form-control">
+                <option *ngFor="let equipe of equipes" [value]="equipe.id">
+                  {{ equipe.nom }}
+                </option>
+              </select>
+              <div
+                *ngIf="matcheForm.controls['equipe_visiteur'].invalid && matcheForm.controls['equipe_visiteur'].touched"
+                class="text-danger">
+                Equipe visiteur is required.
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="date">Date</label>
+              <input type="date" formControlName="date" class="form-control" />
+              <div *ngIf="matcheForm.controls['date'].invalid && matcheForm.controls['date'].touched"
+                class="text-danger">
+                Date is required.
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="lieu">Location</label>
+              <input type="text" formControlName="lieu" class="form-control" />
+              <div *ngIf="matcheForm.controls['lieu'].invalid && matcheForm.controls['lieu'].touched"
+                class="text-danger">
+                Lieu is required.
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-3" [disabled]="matcheForm.invalid">
+              {{ isEditing ? 'Update Match' : 'Add Match' }}
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // JavaScript pour gérer le menu burger
+    document.getElementById('burgerButton').addEventListener('click', function () {
+      var sidebar = document.querySelector('.sidebar');
+      if (sidebar.style.display === 'none' || sidebar.style.display === '') {
+        sidebar.style.display = 'block';
+      } else {
+        sidebar.style.display = 'none';
+      }
+    });
+
+    // JavaScript pour gérer la pagination
+    const cardsContainer = document.getElementById('cardsContainer');
+    const cards = Array.from(cardsContainer.getElementsByClassName('card'));
+    const itemsPerPage = 3;
+    let currentPage = 1;
+
+    function showPage(page) {
+      const start = (page - 1) * itemsPerPage;
+      const end = start + itemsPerPage;
+      cards.forEach((card, index) => {
+        if (index >= start && index < end) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function updatePagination() {
+      const totalPages = Math.ceil(cards.length / itemsPerPage);
+      document.getElementById('prevPage').classList.toggle('disabled', currentPage === 1);
+      document.getElementById('nextPage').classList.toggle('disabled', currentPage === totalPages);
+      document.getElementById('page1').classList.toggle('active', currentPage === 1);
+      document.getElementById('page2').classList.toggle('active', currentPage === 2);
+    }
+
+    document.getElementById('prevPage').addEventListener('click', function (event) {
+      event.preventDefault();
+      if (currentPage > 1) {
+        currentPage--;
+        showPage(currentPage);
+        updatePagination();
+      }
+    });
+
+    document.getElementById('nextPage').addEventListener('click', function (event) {
+      event.preventDefault();
+      if (currentPage < Math.ceil(cards.length / itemsPerPage)) {
+        currentPage++;
+        showPage(currentPage);
+        updatePagination();
+      }
+    });
+
+    document.getElementById('page1').addEventListener('click', function (event) {
+      event.preventDefault();
+      currentPage = 1;
+      showPage(currentPage);
+      updatePagination();
+    });
+
+    document.getElementById('page2').addEventListener('click', function (event) {
+      event.preventDefault();
+      currentPage = 2;
+      showPage(currentPage);
+      updatePagination();
+    });
+
+    // Initial display
+    showPage(currentPage);
+    updatePagination();
+  </script>
+</body>
+
+</html>

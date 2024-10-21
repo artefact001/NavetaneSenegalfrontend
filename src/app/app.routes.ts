@@ -6,6 +6,8 @@ import { AcceuilComponent } from './components/acceuil/acceuil.component'
 import { CompetitionComponent } from './components/competition/competition.component'
 import { LoginComponent } from './login/login.component'
 import { MatcheComponent } from './components/matche/matche.component'
+import { EquipeComponent } from './components/equipe/equipe.component'
+import { TirageComponent } from './components/tirage/tirage.component'
 export const routes: Routes = [
   { path: '', redirectTo: '/acceuil', pathMatch: 'full' }, // Redirection par défaut vers l'accueil
   { path: 'acceuil', component: AcceuilComponent },
@@ -26,6 +28,11 @@ export const routes: Routes = [
   { path: 'competition', component: CompetitionComponent }, // Gérer les compétitions
 
   { path: 'matches', component: MatcheComponent }, // Gérer les compétitions
+
+  { path: 'tirage', component: TirageComponent }, // Gérer les compétitions
+
+
+  { path: 'equipes', component: EquipeComponent }, // Gérer les compétitions
 
   // Route pour la connexion
   { path: 'login', component: LoginComponent } // Gérer la connexion

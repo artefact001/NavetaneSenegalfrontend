@@ -29,9 +29,13 @@ export class TirageService {
     )
   }
 
-  // Ajouter un nouveau tirage
-  addTirage (tirage: Tirage): Observable<Tirage> {
-    return this.http.post<Tirage>(this.apiUrl, tirage)
+  // // Ajouter un nouveau tirage
+  // addTirage (tirage: Tirage): Observable<Tirage> {
+  //   return this.http.post<Tirage>(this.apiUrl, tirage)
+  // }
+  
+   lancerTirage(data: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/lancer`, data);
   }
 
   // Mettre à jour un tirage existant
@@ -44,3 +48,4 @@ export class TirageService {
     return this.http.delete<void>(`${this.apiUrl}/${id}`)
   }
 }
+

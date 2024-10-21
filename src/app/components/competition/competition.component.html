@@ -1,48 +1,169 @@
-<div class="container">
-  <h2>Create Competition</h2>
-  <form [formGroup]="competitionForm" (ngSubmit)="onSubmit()">
+<!DOCTYPE html>
+<html lang="fr">
 
-    <!-- Nom -->
-    <div class="form-group">
-      <label for="nom">Competition Name</label>
-      <input type="text" id="nom" formControlName="nom" class="form-control" placeholder="Enter competition name">
-      <div *ngIf="competitionForm.get('nom')?.invalid && competitionForm.get('nom')?.touched" class="text-danger">
-        Competition name is required and should be at least 3 characters long.
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Gestion des Compétitions</title>
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+  <style>
+    /* Pour gérer la largeur */
+    @media (min-width: 768px) {
+      .main-content {
+        width: 95%;
+      }
+    }
+
+    /* Gestion du menu burger pour mobile */
+    @media (max-width: 767px) {
+      .sidebar {
+        display: none;
+      }
+
+      .menu-burger {
+        display: block;
+      }
+    }
+
+    /* Masque le menu burger sur les grands écrans */
+    .menu-burger {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="flex h-screen">
+    <!-- Sidebar -->
+    <div class="flex flex-col w-64 h-full bg-gray-900 border-r dark:bg-gray-900 dark:border-gray-700 sidebar">
+      <div class="text-center bg-gray-900">
+        <div class="text-gray-100 text-xl">
+          <div class="p-2.5 mt-1 flex items-center">
+            <i class="bi bi-app-indicator px-2 py-1 rounded-md bg-blue-600"></i>
+            <h1 class="font-bold text-gray-200 text-[15px] ml-3">Admin</h1>
+          </div>
+          <div class="my-2 bg-gray-600 h-[1px]"></div>
+        </div>
+        <!-- Sidebar Links -->
+        <div
+          class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
+          <i class="bi bi-house-door-fill"></i>
+          <span class="text-[15px] ml-4 text-gray-200 font-bold">Home</span>
+        </div>
+        <div
+          class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
+          <i class="bi bi-bookmark-fill"></i>
+          <span class="text-[15px] ml-4 text-gray-200 font-bold">Compétition</span>
+        </div>
+        <!-- More Links... -->
       </div>
     </div>
 
-    <!-- Date Debut -->
-    <div class="form-group">
-      <label for="date_debut">Start Date</label>
-      <input type="date" id="date_debut" formControlName="date_debut" class="form-control">
-      <div *ngIf="competitionForm.get('date_debut')?.invalid && competitionForm.get('date_debut')?.touched"
-        class="text-danger">
-        Start date is required.
-      </div>
+    <!-- Menu burger (visible sur mobile) -->
+    <div class="menu-burger p-4">
+      <button id="burgerButton" class="btn btn-primary">
+        <i class="bi bi-list"></i> Menu
+      </button>
     </div>
 
-    <!-- Date Fin -->
-    <div class="form-group">
-      <label for="date_fin">End Date</label>
-      <input type="date" id="date_fin" formControlName="date_fin" class="form-control">
-      <div *ngIf="competitionForm.get('date_fin')?.invalid && competitionForm.get('date_fin')?.touched"
-        class="text-danger">
-        End date is required.
+    <!-- Main Content -->
+    <div class="flex-1 p-6 bg-gray-100 overflow-y-auto main-content">
+      <!-- Formulaire d'ajout de compétitions -->
+      <div class="container mt-5">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h2>Liste des Compétitions</h2>
+          <!-- Bouton Ajouter Compétition -->
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCompetitionModal">
+            <i class="bi bi-plus-circle"></i> Ajouter Compétition
+          </button>
+        </div>
+
+        <!-- Tableau Responsive des Compétitions -->
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+              <tr>
+                <th>Nom de la Compétition</th>
+                <th>Date de Début</th>
+                <th>Date de Fin</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Compétition 1</td>
+                <td>01/01/2024</td>
+                <td>15/01/2024</td>
+                <td>
+                  <button class="btn btn-sm btn-info"><i class="bi bi-pencil"></i></button>
+                  <button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
+                </td>
+              </tr>
+              <!-- More Rows... -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Modal d'ajout de compétition -->
+      <div class="modal fade" id="addCompetitionModal" tabindex="-1" aria-labelledby="addCompetitionModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+              <h5 class="modal-title" id="addCompetitionModalLabel">Ajouter une Compétition</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <!-- Nom -->
+                <div class="form-group mb-3">
+                  <label for="nom">Nom de la Compétition</label>
+                  <input type="text" id="nom" class="form-control" placeholder="Nom de la compétition">
+                </div>
+
+                <!-- Date Début -->
+                <div class="form-group mb-3">
+                  <label for="date_debut">Date de Début</label>
+                  <input type="date" id="date_debut" class="form-control">
+                </div>
+
+                <!-- Date Fin -->
+                <div class="form-group mb-3">
+                  <label for="date_fin">Date de Fin</label>
+                  <input type="date" id="date_fin" class="form-control">
+                </div>
+
+                <!-- Bouton Enregistrer -->
+                <button type="submit" class="btn btn-primary">Enregistrer</button>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+  </div>
 
-    <!-- Submit Button -->
-    <button type="submit" class="btn btn-primary" [disabled]="competitionForm.invalid">Submit</button>
-  </form>
+  <!-- Scripts -->
+  <script>
+    // Gestion du menu burger
+    const burgerButton = document.getElementById('burgerButton');
+    const sidebar = document.querySelector('.sidebar');
 
-  <!-- Affichage des compétitions -->
+    burgerButton.addEventListener('click', () => {
+      if (sidebar.style.display === 'block') {
+        sidebar.style.display = 'none';
+      } else {
+        sidebar.style.display = 'block';
+      }
+    });
+  </script>
 
-  <h3>Competitions</h3>
-  <ul>
-    <li *ngFor="let competition of competitions">
-      <strong>{{ competition.nom }}</strong> ({{ competition.date_debut | date:'shortDate' }} -
-      {{ competition.date_fin | date:'shortDate' }})
-    </li>
-  </ul>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+</body>
 
-</div>
+</html>
