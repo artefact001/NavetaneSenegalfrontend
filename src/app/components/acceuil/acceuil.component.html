@@ -9,11 +9,11 @@
       <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
         <span class="fa fa-bars text-primary"></span>
       </button>
-      
+
       <!-- <a href="" class="btn btn-white py-2 px-4 d-none d-xl-inline-block rounded-pill nav-link"
         [routerLink]="['/login']" routerLinkActive="active">Connexion</a>
        -->
-      
+
       <!-- <a class="btn btn-white py-2 px-4 d-none d-xl-inline-block rounded-pill nav-link" routerLink="/login"
         routerLinkActive="active">Connexion</a> -->
 
@@ -35,12 +35,12 @@
 
         <!-- <a href="" class="btn btn-white py-2 px-4 d-none d-xl-inline-block rounded-pill" s="nav-link"
           [routerLink]="['/login']" routerLinkActive="active">Connexion</a> -->
-          
-          
+
+
           <a class="btn btn-white py-2 px-4 d-none d-xl-inline-block rounded-pill nav-link" routerLink="['/login']"
             routerLinkActive="active">Connexion</a>
 
-          
+
       </div>
     </nav>
   </div>
@@ -146,71 +146,68 @@
 
 
 <!-- Matches Start -->
-
 <!-- <section> -->
- <div>
- <ul class="nav nav-pills d-inline-flex justify-content-center mb-5 wow bounceInUp" data-wow-delay="0.1s">
-         <li class="nav-item p-2">
-           <a class="d-flex mx-2 py-2 border border-primary bg-light rounded-pill active" data-bs-toggle="pill"
-             href="#tab-1">
-             <span class="text-dark" style="width: 150px;">Matches à venir</span>
-           </a>
-         </li>
-        </ul>
-    <div class="container my-4"></div>
+<div>
+  <ul class="nav nav-pills d-inline-flex justify-content-center mb-5 wow bounceInUp" data-wow-delay="0.1s">
+    <li class="nav-item p-2">
+      <a class="d-flex mx-2 py-2 border border-primary bg-light rounded-pill active" data-bs-toggle="pill"
+        href="#tab-1">
+        <span class="text-dark" style="width: 150px;">Matches à venir</span>
+      </a>
+    </li>
+  </ul>
+  <div class="container my-4"></div>
+  <div class="row">
+    <!-- Card 1 -->
+    <!-- Card 1 -->
+    <!-- stylisers commme affichage matches pour -->
+    <!-- <div class="col-md-3 col-sm-6"  *ngFor="let match of matches">
+              <div class="card">
+                  <div class="d-flex justify-content-center">
+                    <img class="image.png" alt="Image description" src="asset/images/Image.png">
+                    <img class="image.png" alt="Image description" src="asset/images/Image.png">
+                  </div>
+                  <h5 class="mt-2">{{ match.equipe_local.nom }} <span class="vs">vs</span>{{ match.equipe_visiteur.nom }}</h5>
+                  <p> Date: {{ match.date}}
+                  <span>17h30</span></p>
+                  <p>Location: {{ match.lieu }}</p>
+
+
+              </div>
+          </div> -->
+    <!-- stylisers commme affichage matches pour -->
     <div class="row">
-        <!-- Card 1 -->
-        <div class="col-md-3 col-sm-6">
-            <div class="card">
-                <div class="d-flex justify-content-center">
-                    <img src="public\asset\images\football 1.png" alt="">
-                    <img src="public\asset\images\football 1.png" alt="">
-                </div>
-                <h5 class="mt-2">ECO <span class="vs">vs</span> Diappo</h5>
-                <p>01 Octobre 2024 <span>17h30</span></p>
+      <div class="col-md-3 col-sm-6" *ngFor="let match of matches">
+        <div class="card shadow-sm p-3 mb-5 bg-white rounded">
+          <div class="d-flex justify-content-center align-items-center mb-2">
+            <!-- Team logos (replace 'image.png' with the correct team logo path) -->
+            <img [src]="'assets/images/' + match.equipe_local" alt="{{ match.equipe_local }} logo"
+              class="team-logo">
+            <span class="mx-3 vs-text">VS</span>
+            <img [src]="'assets/images/' + match.equipe_visiteur" alt="{{ match.equipe_visiteur }} logo"
+              class="team-logo">
+          </div>
 
-            </div>
-        </div>
-        <!-- Card 2 -->
-        <div class="col-md-3 col-sm-6">
-            <div class="card">
-                <div class="d-flex justify-content-center">
-                    <img src="public\asset\images\football 1.png" alt="">
-                    <img src="public\asset\images\football 1.png" alt="">
-                </div>
-                <h5 class="mt-2">ECO <span class="vs">vs</span> Diappo</h5>
-                <p>01 Octobre 2024 <span>17h30</span></p>
+          <!-- Team names -->
+          <h5 class="text-center">
+            {{ match.equipe_local }} <span class="vs">vs</span> {{ match.equipe_visiteur }}
+          </h5>
 
-            </div>
-        </div>
-        <!-- Card 3 -->
-        <div class="col-md-3 col-sm-6">
-            <div class="card">
-                <div class="d-flex justify-content-center">
-                    <img src="public\asset\images\football 1.pngpublic\asset\images\football 1.png" alt="">
-                    <img src="img/event-4.jpg" alt="">
-                </div>
-                <h5 class="mt-2">ECO <span class="vs">vs</span> Diappo</h5>
-                <p>01 Octobre 2024 <span>17h30</span></p>
+          <!-- Match date and time -->
+          <p class="text-center">Date: {{ match.date | date: 'shortDate' }} <span class="match-time">17h30</span></p>
 
-            </div>
+          <!-- Match location -->
+          <p class="text-center">Location: {{ match.lieu }}</p>
         </div>
-        <!-- Card 4 -->
-        <div class="col-md-3 col-sm-6">
-            <div class="card">
-                <div class="d-flex justify-content-center">
-                    <img src="img/event-4.jpg" alt="">
-                    <img src="img/event-4.jpg" alt="">
-                </div>
-                <h5 class="mt-2">ECO <span class="vs">vs</span> Diappo</h5>
-                <p>01 Octobre 2024 <span>17h30</span></p>
-
-            </div>
-        </div>
+      </div>
     </div>
-     </div>
+  <!-- </div> -->
+</div>
 <!-- </section> -->
 <!-- Matches End -->
+
+<!-- Matches End -->
+
 
 
     <!-- Ours Statistique boad -->
@@ -224,7 +221,7 @@
              <span class="text-dark" style="width: 150px;">Notre Classsement</span>
            </a>
          </li>
-    
+
     <!-- </div> -->
     <table class="table table-bordered">
       <thead>
@@ -360,8 +357,8 @@
  <div class="container-fluid event py-6">
    <div class="container">
      <div class="text-center wow bounceInUp" data-wow-delay="0.1s">
-       <small
-         class="d-inline-block fw-bold text-dark text-uppercase bg-light border border-primary rounded-pill px-4 py-1 mb-3"></small>
+       <!-- <small -->
+         <!-- class="d-inline-block fw-bold text-dark text-uppercase bg-light border border-primary rounded-pill px-4 py-1 mb-3"></small> -->
        <h1 class="display-5 mb-5">Notre Gallery Culturel </h1>
      </div>
      <div class="tab-class text-center">
@@ -386,7 +383,7 @@
                        <!-- <h4 class="me-auto">Sapeur Pompier</h4> -->
                        <a href="asset/images/Image.png" data-lightbox="event-1" class="my-auto">
                        <!-- <i class="fas fa-search-plus text-dark fa-2x"></i> -->
-                           
+
                            </a>
                      </div>
                    </div>
@@ -397,7 +394,7 @@
                      <div class="event-overlay d-flex flex-column p-4">
                        <!-- <h4 class="me-auto">Police</h4> -->
                        <a href="asset/images/Image.png" data-lightbox="event-2" class="my-auto">
-                       
+
                        <!-- <i class="fas fa-search-plus text-dark fa-2x"></i> -->
                        </a>
                      </div>
@@ -419,9 +416,9 @@
                      <img class="img-fluid rounded w-100" src="asset/images/Image.png" alt="">
                      <div class="event-overlay d-flex flex-column p-4">
                        <!-- <h4 class="me-auto">securité</h4> -->
-                       <a href="asset/images/Image.png" data-lightbox="event-4" class="my-auto">  
+                       <a href="asset/images/Image.png" data-lightbox="event-4" class="my-auto">
                        <!-- <i class="fas fa-search-plus text-dark fa-2x"></i>    -->
-                           
+
                            </a>
                      </div>
                    </div>
@@ -432,7 +429,7 @@
                      <div class="event-overlay d-flex flex-column p-4">
                        <!-- <h4 class="me-auto">esprit de groupe</h4> -->
                        <a href="asset/images/Image.png" data-lightbox="event-5" class="my-auto">
-                       
+
                        <!-- <i class="fas fa-search-plus text-dark fa-2x"></i> -->
                            </a>
                      </div>
@@ -446,7 +443,7 @@
                        <a href="asset/images/Image.png" data-lightbox="event-6" class="my-auto">
                        <!-- <i
                        class="fas fa-search-plus text-dark fa-2x"></i> -->
-                           
+
                            </a>
                      </div>
                    </div>
@@ -468,8 +465,11 @@
                      <img class="img-fluid rounded w-100" src="asset/images/Image.png" alt="">
                      <div class="event-overlay d-flex flex-column p-4">
                        <!-- <h4 class="me-auto">danse</h4> -->
-                       <a href="asset/images/Image.png" data-lightbox="event-17" class="my-auto"><i
-                           class="fas fa-search-plus text-dark fa-2x"></i></a>
+                       <a href="asset/images/Image.png" data-lightbox="event-17" class="my-auto">
+
+                       <!-- <i class="fas fa-search-plus text-dark fa-2x"></i> -->
+                       
+                       </a>
                      </div>
                    </div>
                  </div>
@@ -550,10 +550,10 @@
                      <img class="img-fluid rounded w-100" src="asset/images/Image.png" alt="">
                      <div class="event-overlay d-flex flex-column p-4">
                        <!-- <h4 class="me-auto">Apport de la jeunesse</h4> -->
-                       <a href="asset/images/Image.png" data-lightbox="event-12" class="my-auto">  
+                       <a href="asset/images/Image.png" data-lightbox="event-12" class="my-auto">
                        <!-- <i
                            class="fas fa-search-plus text-dark fa-2x"></i> -->
-                           </a> 
+                           </a>
                      </div>
                    </div>
                  </div>
@@ -563,10 +563,10 @@
                      <div class="event-overlay d-flex flex-column p-4">
                        <!-- <h4 class="me-auto">Vie associative</h4> -->
                        <a href="asset/images/Image.png" data-lightbox="event-13" class="my-auto">
-                       
+
                        <!-- <i
                            class="fas fa-search-plus text-dark fa-2x"></i> -->
-                           
+
                            </a>
                      </div>
                    </div>

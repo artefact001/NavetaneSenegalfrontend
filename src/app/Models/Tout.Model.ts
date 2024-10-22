@@ -100,10 +100,13 @@ export interface Tirage {
     id: number;
     competition_id: number;
     phase: any; // JSON
-    poul: any; // JSON
+    poules: any; // JSON
     created_at?: Date;
     updated_at?: Date;
 }
+
+
+
 
 // historique-joueur-equipe.model.ts
 export interface HistoriqueJoueurEquipe {

@@ -1,9 +1,17 @@
-/* src/app/components/tirage/tirage.component.css */
-
 .container {
-  margin: 20px auto;
+  max-width: 600px;
+  margin: auto;
 }
 
-.table {
-  margin-bottom: 20px;
+h2, h3, h4 {
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.btn {
+  display: block;
+  width: 100%;
 }

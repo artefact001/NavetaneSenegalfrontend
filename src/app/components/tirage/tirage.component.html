@@ -1,33 +1,182 @@
-<!-- src/app/components/tirage/tirage.component.html -->
+<!DOCTYPE html>
+<html lang="fr">
 
-<div class="container">
-  <h1>Lancer le Tirage des Poules</h1>
-  <div class="form-group">
-    <label for="phase">Phase:</label>
-    <input type="text" [(ngModel)]="phase" class="form-control" id="phase" placeholder="Entrez la phase" />
-  </div>
-  <div class="form-group">
-    <label for="nombrePoules">Nombre de Poules:</label>
-    <input type="number" [(ngModel)]="nombrePoules" class="form-control" id="nombrePoules" min="2" step="2" />
-  </div>
-  <button (click)="lancerTirage()" class="btn btn-primary">Lancer le Tirage</button>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Gestion des tirages</title>
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+  <style>
+    /* Pour gérer la largeur */
+    @media (min-width: 768px) {
+      .main-content {
+        width: 95%;
+      }
+    }
 
-  <div *ngIf="poules.length > 0">
-    <h2>Résultat du Tirage</h2>
-    <div *ngFor="let poule of poules; let i = index">
-      <h3>Poule {{'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[i]}}</h3>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Équipe</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let equipe of poule.equipes">
-            <td>{{ equipe }}</td>
-          </tr>
-        </tbody>
-      </table>
+    /* Gestion du menu burger pour mobile */
+    @media (max-width: 767px) {
+      .sidebar {
+        display: none;
+      }
+
+      .menu-burger {
+        display: block;
+      }
+    }
+
+    /* Masque le menu burger sur les grands écrans */
+    .menu-burger {
+      display: none;
+    }
+
+    /* Styles for match cards */
+    .card {
+      width: 100%;
+      margin: 15px;
+      border: none;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      background-color: #fff;
+    }
+
+    .card img {
+      object-fit: cover;
+      height: 150px;
+      width: 100%;
+    }
+
+    .card-body {
+      padding: 10px;
+      text-align: center;
+    }
+
+    .card-title {
+      font-size: 18px;
+      color: #1d2951;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .card-text {
+      font-size: 14px;
+      color: #666;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Masquer les barres de défilement */
+    .cards-container {
+      display: flex;
+      overflow-x: scroll;
+      padding: 20px;
+      -ms-overflow-style: none;
+      /* IE and Edge */
+      scrollbar-width: none;
+      /* Firefox */
+    }
+
+    .cards-container::-webkit-scrollbar {
+      display: none;
+      /* Chrome, Safari, Opera */
+    }
+
+    .card {
+      flex: 0 0 220px;
+      /* Largeur de chaque carte */
+      margin-right: 15px;
+    }
+
+    /* Arrière-plan global */
+    body {
+      background-color: #f4f4f9;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="flex h-screen">
+    <!-- Sidebar -->
+    <div class="flex flex-col w-64 h-full bg-gray-900 border-r dark:bg-gray-900 dark:border-gray-700 sidebar">
+      <div class="text-center bg-gray-900">
+        <div class="text-gray-100 text-xl">
+          <div class="p-2.5 mt-1 flex items-center">
+            <i class="bi bi-app-indicator px-2 py-1 rounded-md bg-blue-600"></i>
+            <h1 class="font-bold text-gray-200 text-[15px] ml-3">Admin</h1>
+          </div>
+          <div class="my-2 bg-gray-600 h-[1px]"></div>
+        </div>
+
+        <!-- Sidebar Links -->
+        <div
+          class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
+          <i class="bi bi-house-door-fill"></i>
+          <span class="text-[15px] ml-4 text-gray-200 font-bold">Home</span>
+        </div>
+        <div
+          class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
+          <i class="bi bi-bookmark-fill"></i>
+          <span class="text-[15px] ml-4 text-gray-200 font-bold">Compétition</span>
+        </div>
+
+        <!-- New Matches Section -->
+        <div
+          class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
+          <i class="bi bi-flag-fill"></i>
+          <span class="text-[15px] ml-4 text-gray-200 font-bold">Gestion des Matches</span>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
+
+    <!-- Menu burger (visible sur mobile) -->
+    <div class="menu-burger p-4">
+      <button id="burgerButton" class="btn btn-primary">
+        <i class="bi bi-list"></i> Menu
+      </button>
+    </div>
+
+ <div class="container">
+   <h2>Lancer un Tirage</h2>
+   <form (ngSubmit)="lancerTirage()">
+     <div class="form-group">
+       <label for="phase">Phase:</label>
+       <input type="text" id="phase" [(ngModel)]="phase" name="phase" class="form-control" required>
+     </div>
+
+     <div class="form-group">
+       <label for="competition_id">ID de la Compétition:</label>
+       <input type="number" id="competition_id" [(ngModel)]="competition_id" name="competition_id" class="form-control"
+         required>
+     </div>
+
+     <div class="form-group">
+       <label for="nombrePoules">Nombre de Poules:</label>
+       <input type="number" id="nombrePoules" [(ngModel)]="nombrePoules" name="nombrePoules" class="form-control"
+         min="2" required>
+     </div>
+
+     <button type="submit" class="btn btn-primary">Lancer le Tirage</button>
+   </form>
+
+   <div *ngIf="poules.length > 0">
+     <h3>Poules Générées</h3>
+     <div *ngFor="let poule of poules">
+       <h4>{{ poule.nom }}</h4>
+       <ul>
+         <li *ngFor="let equipe of poule.equipes">Équipe ID: {{ equipe }}</li>
+       </ul>
+     </div>
+   </div>
+ </div>
+
+  
+
+

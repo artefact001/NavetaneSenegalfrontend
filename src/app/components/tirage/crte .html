@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, width=device-width">
+
+  <link rel="stylesheet" href="./index.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" />
+
+  <style>
+    .fixtures {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      text-transform: uppercase;
+      font-weight: 600;
+      display: inline-block;
+      width: 390px;
+    }
+
+    .most-popular-ans-icon {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      width: 577px;
+      height: 36px;
+    }
+
+    .icon {
+      position: absolute;
+      top: 4px;
+      left: 534px;
+      width: 32px;
+      height: 32px;
+    }
+
+    .international-friendly-match {
+      width: 213px;
+      position: relative;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    .international-friendly-match-wrapper {
+      width: 234px;
+      border-radius: 30px;
+      background-color: #fff;
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: flex-start;
+      padding: 5px 10px;
+      box-sizing: border-box;
+      color: #2648d1;
+    }
+
+    .hongkong-stadium {
+      width: 234px;
+      position: relative;
+      letter-spacing: 0.02em;
+      line-height: 124.5%;
+      font-weight: 500;
+      display: inline-block;
+    }
+
+    .frame-group {
+      position: absolute;
+      top: 15px;
+      left: 20px;
+      width: 234px;
+      height: 75px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 4px;
+      text-align: center;
+      color: #023f76;
+    }
+
+    .frame-child {
+      position: absolute;
+      top: 105px;
+      left: 57px;
+      border-radius: 50%;
+      width: 43px;
+      height: 43px;
+      object-fit: cover;
+    }
+
+    .ny-yorks {
+      position: absolute;
+      top: 154px;
+      left: 44px;
+      font-size: 16px;
+    }
+
+    .frame-item {
+      position: absolute;
+      top: 105px;
+      left: 174px;
+      border-radius: 50%;
+      width: 43px;
+      height: 43px;
+      object-fit: cover;
+    }
+
+    .ny-yorks1 {
+      position: absolute;
+      top: 154px;
+      left: 162px;
+      font-size: 16px;
+    }
+
+    .vs {
+      position: absolute;
+      top: 120px;
+      left: 128px;
+      font-weight: 500;
+      font-family: Roboto;
+      color: #172c41;
+    }
+
+    .frame-parent {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      box-shadow: 64.01844024658203px 76.82212829589844px 80px rgba(0, 0, 0, 0.07), 41.49343490600586px 49.792118072509766px 46.85px rgba(0, 0, 0, 0.05), 24.658954620361328px 29.59074592590332px 25.48px rgba(0, 0, 0,
+          0.04), 12.803688049316406px 15.364425659179688px 13px rgba(0, 0, 0, 0.04), 5.216317176818848px 6.259580612182617px 6.52px rgba(0, 0, 0, 0.03), 1.1855266094207764px 1.4226319789886475px 3.15px rgba(0, 0, 0, 0.02);
+      border-radius: 12px;
+      background-color: rgba(255, 255, 255, 0.8);
+      border: 2px solid #fff;
+      box-sizing: border-box;
+      width: 275px;
+      height: 210px;
+    }
+
+    .crad-1 {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      width: 275px;
+      height: 210px;
+    }
+
+    .ny-yorks2 {
+      position: absolute;
+      top: 154px;
+      left: 45px;
+      font-size: 16px;
+    }
+
+    .crad-2 {
+      position: absolute;
+      top: 0px;
+      left: 291px;
+      width: 275px;
+      height: 210px;
+    }
+
+    .cards {
+      position: absolute;
+      top: 46px;
+      left: 0px;
+      width: 579px;
+      height: 230px;
+      font-size: 14px;
+      color: #5b5b5b;
+    }
+
+    .most-popular {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      width: 579px;
+      height: 276px;
+    }
+
+    .most-popular-parent {
+      width: 100%;
+      position: relative;
+      height: 276px;
+      text-align: left;
+      font-size: 24px;
+      color: #fff;
+      font-family: Oxanium;
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <div class="most-popular-parent">
+    <div class="most-popular">
+      <div class="most-popular-ans-icon">
+        <div class="fixtures">Nos Matches</div>
+      </div>
+      <img class="icon" alt="" src="icon.svg">
+
+      <div class="cards">
+            <div class="crad-1">
+              <div class="frame-parent">
+                <div class="frame-group">
+                  <div class="international-friendly-match-wrapper">
+                    <b class="international-friendly-match">International Friendly Match</b>
+                  </div>
+                  <div class="hongkong-stadium">19-06-2023 | 20:00 UTC+08</div>
+                  <div class="hongkong-stadium">Hongkong Stadium</div>
+                </div>
+                <img class="frame-child" alt="" src="Ellipse 6.png">
+    
+                <div class="ny-yorks">NY Yorks</div>
+                <img class="frame-item" alt="" src="Ellipse 8.png">
+    
+                <div class="ny-yorks1">NY Yorks</div>
+                <div class="vs">VS</div>
+              </div>
+            </div>
+            <div class="crad-2">
+              <div class="frame-parent">
+                <div class="frame-group">
+                  <div class="international-friendly-match-wrapper">
+                    <b class="international-friendly-match">International Friendly Match</b>
+                  </div>
+                  <div class="hongkong-stadium">19-06-2023 | 20:00 UTC+08</div>
+                  <div class="hongkong-stadium">Hongkong Stadium</div>
+                </div>
+                <img class="frame-child" alt="" src="Ellipse 6.png">
+    
+                <div class="ny-yorks2">NY Yorks</div>
+                <img class="frame-item" alt="" src="Ellipse 8.png">
+    
+                <div class="ny-yorks1">NY Yorks</div>
+                <div class="vs">VS</div>
+              </div>
+            </div>
+
+            <div class="crad-3">
+              <div class="frame-parent">
+                <div class="frame-group">
+                  <div class="international-friendly-match-wrapper">
+                    <b class="international-friendly-match">International Friendly Match</b>
+                  </div>
+                  <div class="hongkong-stadium">19-06-2023 | 20:00 UTC+08</div>
+                  <div class="hongkong-stadium">Hongkong Stadium</div>
+                </div>
+                <img class="frame-child" alt="" src="Ellipse 6.png">
+    
+                <div class="ny-yorks">NY Yorks</div>
+                <img class="frame-item" alt="" src="Ellipse 8.png">
+    
+                <div class="ny-yorks1">NY Yorks</div>
+                <div class="vs">VS</div>
+              </div>
+            </div>
+            <div class="crad-4">
+              <div class="frame-parent">
+                <div class="frame-group">
+                  <div class="international-friendly-match-wrapper">
+                    <b class="international-friendly-match">International Friendly Match</b>
+                  </div>
+                  <div class="hongkong-stadium">19-06-2023 | 20:00 UTC+08</div>
+                  <div class="hongkong-stadium">Hongkong Stadium</div>
+                </div>
+                <img class="frame-child" alt="" src="Ellipse 6.png">
+    
+                <div class="ny-yorks2">NY Yorks</div>
+                <img class="frame-item" alt="" src="Ellipse 8.png">
+    
+                <div class="ny-yorks1">NY Yorks</div>
+                <div class="vs">VS</div>
+              </div>
+            </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

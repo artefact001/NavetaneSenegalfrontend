@@ -29,7 +29,7 @@ export const routes: Routes = [
 
   { path: 'matches', component: MatcheComponent }, // Gérer les compétitions
 
-  { path: 'tirage', component: TirageComponent }, // Gérer les compétitions
+  { path: 'tirages', component: TirageComponent }, // Gérer les compétitions
 
 
   { path: 'equipes', component: EquipeComponent }, // Gérer les compétitions
